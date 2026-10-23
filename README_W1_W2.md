@@ -1,8 +1,8 @@
 # Wallet MVP - Hackathon Día 5
 
-MVP demostrativo de una billetera digital enfocado en **W1: registro y activación** y **W2: confirmación de pagos de bajo monto**. El alcance usa datos ficticios y un proveedor de pagos simulado; no procesa dinero real ni se conecta a sistemas bancarios.
+Prototipo de una billetera digital enfocado actualmente en **W1: registro y activación**. El frontend consume el mock compartido del Grupo 4; utiliza identificadores `TEST-` y no procesa dinero real ni se conecta a sistemas bancarios.
 
-> Estado del proyecto: alcance definido para W1 y W2. Actualiza esta sección a medida que cada flujo se implemente y valide.
+> Estado: frontend W1 conectado al mock del Grupo 4. W2 sigue pendiente. La API conserva verificaciones y wallets por grupo; evita repetir documentos de prueba.
 
 ## Objetivo
 
@@ -19,7 +19,8 @@ Criterios de aceptación:
 - El flujo muestra la secuencia de pasos requeridos y el paso actual.
 - Si falta información obligatoria o hay datos inválidos, bloquea el avance y muestra cómo corregirlos.
 - Al completar el onboarding, la Wallet cambia a estado activa y permite acceder al flujo de pagos.
-- Se registran eventos de inicio, finalización de cada paso y cierre del onboarding.
+- El mock crea una Wallet y permite consultar el estado de la verificación y la cuenta.
+- La interfaz registra eventos de navegación solo en memoria; no se envían a la API ni sobreviven a una recarga.
 
 ### W2 - Confirmación de pagos de bajo monto
 
@@ -52,13 +53,13 @@ Criterios de aceptación:
 Actividades:
 
 1. Acordar campos obligatorios, pasos, estados y mensajes de validación. Definir el mock de KYC con datos sintéticos.
-2. Preparar la estructura mínima de frontend, backend y persistencia para ejecutar la aplicación localmente.
+2. Configurar el frontend para el endpoint base del Grupo 4 y el header `X-Mock-Latency-Ms`.
 3. Implementar el onboarding guiado con progreso visible, validaciones y mensajes accionables.
-4. Activar la Wallet al completar el registro y habilitar el acceso al flujo de pagos.
-5. Registrar eventos de inicio, finalización de pasos y cierre del onboarding.
-6. Probar alta válida, datos inválidos y activación; revisar el uso de datos sintéticos y la ausencia de secretos.
+4. Crear la verificación en el mock; consultar su estado y el de la Wallet.
+5. Cubrir `APPROVED`, `MANUAL_REVIEW`, `REJECTED` y `UNAVAILABLE`; ofrecer decisión humana para el caso pendiente.
+6. Probar validaciones y respuestas HTTP; usar únicamente documentos ficticios nuevos con prefijo `TEST-`.
 
-**Responsables:** Luis y Edert acuerdan flujo y criterios; Álvaro implementa API y persistencia; Erick implementa la interfaz; Rodrigo prepara y ejecuta pruebas; Michael revisa validaciones y datos.
+**Responsables:** Luis y Edert acuerdan flujo y criterios; Álvaro verifica el contrato y la integración del API mock; Erick implementa la interfaz; Rodrigo prepara y ejecuta pruebas; Michael revisa validaciones y manejo de datos.
 
 **Entregable:** onboarding ejecutable y probado que termina con la Wallet activa.
 
@@ -94,26 +95,35 @@ Al finalizar Sprint 2, congelar el código a las 15:15. Usar el bloque 15:15-15:
 
 ## Arquitectura y decisiones
 
-Completar cuando el equipo acuerde la implementación:
+El frontend estático llama directamente al servicio mock del laboratorio. No hay backend propio ni SQLite local en este prototipo.
 
-- Interfaz: [tecnología y responsabilidad]
-- Backend/API: [tecnología y responsabilidad]
-- Persistencia: [tecnología y datos guardados]
-- Proveedor de pagos simulado: [contrato y resultados controlables]
-- Analítica local: [eventos registrados y dónde consultarlos]
-- Diagrama: [ruta al diagrama]
-- Decisiones técnicas/ADR: [rutas o enlaces]
+- Frontend: `index.html`, validaciones del formulario y presentación de estados.
+- API W1: `https://bcp-wallet-mock.yefri.workers.dev/groups/4`.
+- Persistencia: SQLite gestionado por el mock, con datos separados por grupo.
+- CORS: habilitado por el servicio; el navegador puede llamar al API directamente.
+- Diagrama: [`arquitectura-w1-w2.svg`](arquitectura-w1-w2.svg).
+
+### Endpoints W1 utilizados
+
+| Operación | Endpoint | Uso |
+|---|---|---|
+| Crear verificación y Wallet | `POST /kyc/verifications` | Envía `documentType: TEST`, documento `TEST-...` y escenario. |
+| Consultar verificación | `GET /kyc/verifications/{id}` | El `id` KYC es distinto de `wallet_id`. |
+| Consultar Wallet | `GET /wallets/{wallet_id}` | Muestra estado y saldos en céntimos. |
+| Consultar soporte | `GET /support/cases` | Se consulta para solicitudes `MANUAL_REVIEW`. |
+| Resolver revisión | `POST /kyc/verifications/{id}/decision` | Envía `ACTIVE` o `REJECTED` para una verificación pendiente. |
+
+Escenarios KYC: `APPROVED`, `REJECTED`, `MANUAL_REVIEW` y `UNAVAILABLE`. `UNAVAILABLE` responde `503 KYC_UNAVAILABLE` sin crear una Wallet. `APPROVED` crea una Wallet `ACTIVE` con saldo cero; `MANUAL_REVIEW` crea una Wallet `PENDING` y un caso de soporte.
+
+El alta no es idempotente: el mock no evita registros repetidos. Cada intento debe usar un documento ficticio `TEST-` diferente. No usar `/control/reset` porque los datos son compartidos por el equipo.
 
 ## Requisitos y ejecución local
 
-Stack y comandos de ejecución: **pendientes de definir e implementar**. Completar esta sección cuando la aplicación sea ejecutable:
+El frontend no requiere instalación de dependencias. Abre `index.html` en un navegador con conexión al mock:
 
-- Runtime y versión: [pendiente]
-- Dependencias: [pendiente]
-- Configuración: [instrucciones; no incluir secretos]
-- Instalar: `[comando pendiente]`
-- Ejecutar: `[comando pendiente]`
-- URL local: [pendiente]
+- URL base: `https://bcp-wallet-mock.yefri.workers.dev/groups/4`
+- Header opcional: `X-Mock-Latency-Ms: 0` (rango documentado: 0-5000 ms).
+- El grupo se configura en `API_BASE` dentro de `index.html`; usa el grupo asignado al equipo.
 
 No publiques tokens, contraseñas ni datos personales en el repositorio. Si se requieren variables de entorno, documenta sus nombres en `.env.example` con valores ficticios.
 
@@ -123,9 +133,10 @@ Registrar los comandos ejecutados y resultados reales. No marcar un criterio com
 
 | Historia | Caso | Resultado | Evidencia |
 |---|---|---|---|
-| W1 | Onboarding válido activa la Wallet | Pendiente | [ruta/enlace] |
-| W1 | Datos ausentes o inválidos bloquean el avance con mensaje accionable | Pendiente | [ruta/enlace] |
-| W1 | Eventos de inicio, pasos y cierre quedan registrados | Pendiente | [ruta/enlace] |
+| W1 | Datos ausentes o inválidos bloquean el avance | Verificado en navegador | [prototipo](index.html) |
+| W1 | `UNAVAILABLE` devuelve 503 y no crea Wallet | Verificado contra Grupo 4 | [prototipo](index.html) |
+| W1 | `APPROVED` crea Wallet activa y se consulta estado/saldo | Pendiente de prueba de escritura | [prototipo](index.html) |
+| W1 | Eventos de onboarding persistidos | No cubierto: el mock no expone endpoint de analítica W1 | [prototipo](index.html) |
 | W2 | Destinatario e importe se muestran antes de confirmar | Pendiente | [ruta/enlace] |
 | W2 | Éxito devuelve referencia y aparece en historial | Pendiente | [ruta/enlace] |
 | W2 | Fallo/expiración permiten volver o reintentar sin duplicar el cobro | Pendiente | [ruta/enlace] |
@@ -135,10 +146,12 @@ Comando de pruebas: `[pendiente]`
 ## Seguridad y limitaciones
 
 - Usar únicamente datos de prueba sintéticos.
-- El proveedor de pagos es un mock; los resultados no representan una operación real.
+- Enviar al API solo `documentType: TEST`, documentos ficticios `TEST-` y escenarios permitidos.
+- Nombre, apellido, correo y teléfono del formulario son solo visuales y no se envían al mock.
+- El servicio mock conserva los datos del grupo; no usar identificadores repetidos ni resetear el grupo.
+- KYC es simulado; no valida documentos reales ni evita altas repetidas.
 - No almacenar ni registrar credenciales, secretos o datos financieros reales.
-- Documentar cómo se evita la duplicidad en un reintento de W2 y las limitaciones de esa protección.
-- Los límites de monto y las etiquetas de estados deben ser acordados por Producto antes de la demo.
+- La API mock no ofrece persistencia de eventos analíticos de onboarding; el log actual es local y temporal.
 
 ## Uso de IA
 
