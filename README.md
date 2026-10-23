@@ -1,6 +1,8 @@
 # wallet_4
 
-Proyecto de wallet del equipo 4 para la hackaton. Backend previsto en Java y frontend en ReactJS. Esta entrega contiene el contrato de la API y pruebas ejecutables desde Postman; no implementa todavia el backend ni el frontend.
+Proyecto de wallet del equipo 4 para la hackaton. Incluye el contrato de la API, pruebas ejecutables desde Postman y un mock Angular del dashboard posterior al inicio de sesión. El mock usa datos de demostración y no se conecta a un backend ni autentica usuarios.
+
+Consulta [cómo ejecutar el dashboard Angular](frontend/README.md). La lógica de negocio y las operaciones de pago siguen pendientes.
 
 ## Contrato y archivos
 
