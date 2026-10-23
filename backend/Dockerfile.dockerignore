@@ -1,0 +1,9 @@
+**
+!backend/
+!backend/pom.xml
+!backend/src/
+!backend/src/**
+!client/
+!client/openapi.json
+**/.env
+**/*.log
