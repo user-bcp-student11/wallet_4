@@ -3,6 +3,20 @@
 Proyecto de wallet del equipo 4 para la hackaton. Incluye el contrato de la API, pruebas ejecutables desde Postman y un mock Angular del dashboard posterior al inicio de sesión. El mock usa datos de demostración y no se conecta a un backend ni autentica usuarios.
 
 Consulta [cómo ejecutar el dashboard Angular](frontend/README.md). La lógica de negocio y las operaciones de pago siguen pendientes.
+Proyecto de wallet del equipo 4 para la hackaton. Incluye una base de backend Java 21 con Quarkus, contrato OpenAPI y pruebas ejecutables desde Postman. El frontend ReactJS y la logica de negocio de la wallet estan pendientes.
+
+## Backend Quarkus
+
+La [guia del backend](backend/README.md) explica la estructura, generacion de modelos e interfaces desde OpenAPI, ejecucion, pruebas y Docker.
+
+Inicio rapido en PowerShell, con `JAVA_HOME` configurado para Java 21:
+
+```powershell
+cd backend
+.\mvnw.cmd compile quarkus:dev
+```
+
+El endpoint de ejemplo es `http://localhost:8080/health`; Swagger UI esta disponible en desarrollo en `http://localhost:8080/q/swagger-ui`. Las demas operaciones de negocio aun no estan implementadas.
 
 ## Contrato y archivos
 
