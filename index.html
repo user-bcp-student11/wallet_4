@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#174b3d">
+  <title>Hackatón | Billetera digital en Perú (grupo 4)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root { --green: #174b3d; --lime: #d6f58b; --ink: #202b27; --muted: #737a75; --line: #dce2dc; --paper: #f6f8f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 15px; letter-spacing: 0; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #76a840; outline-offset: 4px; }
+    [hidden] { display: none !important; }
+    .page { max-width: 1280px; padding: 0 64px; margin: auto; }
+    header { min-height: 108px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 8px; background: var(--green); color: var(--lime); }
+    .brand-icon svg { width: 23px; height: 23px; }
+    h1 { font-family: 'Manrope', sans-serif; font-size: 23px; font-weight: 800; margin: 0; }
+    .edition { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 600; }
+    .peru { display: inline-block; width: 23px; height: 16px; background: linear-gradient(90deg, #d74749 0 33.33%, #fff 33.33% 66.66%, #d74749 66.66%); border: 1px solid #00000008; }
+    main { display: grid; grid-template-columns: 1fr 1fr; gap: 92px; padding: 60px 0 64px; align-items: center; }
+    .intro { align-self: stretch; display: flex; flex-direction: column; }
+    .eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--green); margin: 0 0 18px; }
+    h2 { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.2; margin: 0; }
+    h2 span { display: block; color: var(--green); }
+    .group { display: flex; align-items: center; gap: 12px; margin: 22px 0 30px; font-size: 13px; color: #5a665f; }
+    .group::before { content: ''; width: 28px; height: 1px; background: #92a797; }
+    .landscape { margin: auto 0 0; position: relative; min-height: 260px; flex: 1; overflow: hidden; border-radius: 8px; background: #406956; }
+    .landscape img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: center 48%; }
+    .landscape::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 55%, #0b2d2599); }
+    figcaption { position: absolute; z-index: 1; bottom: 22px; left: 24px; right: 24px; display: flex; align-items: center; justify-content: space-between; color: white; font-size: 12px; }
+    figcaption span { display: flex; gap: 6px; align-items: center; }
+    figcaption svg { width: 14px; height: 14px; }
+    .account { width: 100%; max-width: 424px; justify-self: end; padding: 8px 0; }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 23px; }
+    h3 { font-family: 'Manrope', sans-serif; font-size: 25px; margin: 0; font-weight: 800; }
+    .secure-icon { color: #7e8f80; width: 21px; height: 21px; }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; background: #e9eee8; border-radius: 7px; margin-bottom: 30px; }
+    .tab { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 43px; border: 0; border-radius: 4px; background: transparent; color: #6a746d; font-size: 13px; font-weight: 700; }
+    .tab svg { width: 16px; height: 16px; }
+    .tab[aria-selected="true"] { background: white; color: var(--green); box-shadow: 0 2px 5px #182f1810; }
+    form { animation: appear .25s ease-out; }
+    h4 { font-size: 18px; margin: 0 0 24px; font-weight: 700; }
+    .field { margin-bottom: 19px; }
+    label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+    .input-wrap { position: relative; }
+    input { width: 100%; height: 49px; border: 1px solid #d5ddd4; border-radius: 5px; background: #fff; color: var(--ink); padding: 0 14px; transition: border-color .15s, box-shadow .15s; min-width: 0; }
+    input::placeholder { color: #98a099; font-size: 13px; }
+    input:focus { outline: none; border-color: #578466; box-shadow: 0 0 0 3px #174b3d0d; }
+    input[type="password"], .password-input { padding-right: 50px; }
+    .reveal { position: absolute; right: 5px; top: 5px; width: 39px; height: 39px; display: grid; place-items: center; border: 0; background: transparent; color: #7e8c81; border-radius: 4px; }
+    .reveal svg { width: 18px; height: 18px; }
+    .submit { width: 100%; min-height: 49px; margin-top: 6px; padding: 12px 18px; display: flex; justify-content: center; align-items: center; gap: 12px; background: var(--green); color: white; border: 0; border-radius: 5px; font-size: 13px; font-weight: 700; transition: background .15s; }
+    .submit:hover { background: #22644f; }
+    .submit svg { width: 17px; height: 17px; }
+    .switch-note { text-align: center; font-size: 12px; color: var(--muted); margin: 22px 0 0; }
+    .text-button { color: var(--green); border: 0; background: none; font-weight: 700; padding: 3px; font-size: inherit; }
+    .text-button:hover { text-decoration: underline; }
+    .notice { margin: 20px 0 0; padding: 13px 15px; background: #e5efdd; border-left: 3px solid #618143; font-size: 13px; line-height: 1.6; border-radius: 3px; }
+    footer { border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; padding: 22px 0 28px; color: #7b857c; font-size: 11px; }
+    .prototype { display: flex; align-items: center; gap: 7px; }
+    .prototype::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #7a995c; }
+    @keyframes appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 960px) { .page { padding: 0 32px; } main { gap: 40px; } h2 { font-size: 36px; } }
+    @media (max-width: 680px) {
+      .page { padding: 0 24px; } header { min-height: 82px; } h1 { font-size: 21px; } .edition { font-size: 11px; }
+      main { grid-template-columns: 1fr; gap: 32px; padding: 32px 0 36px; } h2 { font-size: 31px; } h2 span { display: inline; }
+      .eyebrow { margin-bottom: 12px; font-size: 10px; } .group { margin: 14px 0 0; } .landscape { display: none; }
+      .account { max-width: none; padding: 0; } h3 { font-size: 22px; } .section-heading { margin-bottom: 18px; }
+      .tabs { margin-bottom: 24px; } footer { flex-wrap: wrap; font-size: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand"><span class="brand-icon" aria-hidden="true"><i data-lucide="wallet"></i></span><h1>Hackatón</h1></div>
+      <div class="edition"><span class="peru" aria-hidden="true"></span> Perú · Grupo 4</div>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="wallet-title">
+        <p class="eyebrow">Conectados por nuevas ideas</p>
+        <h2 id="wallet-title">Billetera digital <span>en Perú (grupo 4)</span></h2>
+        <p class="group">Hackatón · Equipo 04</p>
+        <figure class="landscape">
+          <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=1000&q=85" alt="Vista de Machu Picchu entre las montañas del Perú">
+          <figcaption><span><i data-lucide="map-pin" aria-hidden="true"></i> Machu Picchu, Perú</span><span>13° S · 72° O</span></figcaption>
+        </figure>
+      </section>
+      <section class="account" aria-labelledby="options-title">
+        <div class="section-heading"><h3 id="options-title">Opciones</h3><i class="secure-icon" data-lucide="shield-check" aria-hidden="true"></i></div>
+        <div class="tabs" role="tablist" aria-label="Acceso a la billetera">
+          <button class="tab" id="register-tab" type="button" role="tab" aria-selected="true" aria-controls="register-panel" data-mode="register"><i data-lucide="user-plus" aria-hidden="true"></i>Registro</button>
+          <button class="tab" id="login-tab" type="button" role="tab" aria-selected="false" aria-controls="login-panel" tabindex="-1" data-mode="login"><i data-lucide="log-in" aria-hidden="true"></i>Login</button>
+        </div>
+        <div id="register-panel" role="tabpanel" aria-labelledby="register-tab">
+          <form id="register-form">
+            <h4>Crea tu cuenta</h4>
+            <div class="field"><label for="name">Nombre</label><input id="name" name="name" autocomplete="name" placeholder="Tu nombre completo" required maxlength="100" pattern=".*\S.*" title="Ingresa tu nombre"></div>
+            <div class="field"><label for="email">Correo electrónico</label><input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required maxlength="254"></div>
+            <div class="field"><label for="phone">Celular</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Ej. 987654321" pattern="9[0-9]{8}" title="Ingresa 9 dígitos, empezando por 9" required maxlength="9"></div>
+            <div class="field"><label for="register-password">Clave</label><div class="input-wrap"><input id="register-password" class="password-input" name="password" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8"><button type="button" class="reveal" aria-label="Mostrar clave" aria-controls="register-password" aria-pressed="false"><i data-lucide="eye" aria-hidden="true"></i></button></div></div>
+            <button class="submit" type="submit">Crear cuenta<i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            <p class="switch-note">¿Ya tienes una cuenta? <button class="text-button" type="button" data-mode="login">Inicia sesión</button></p>
+          </form>
+        </div>
+        <div id="login-panel" role="tabpanel" aria-labelledby="login-tab" hidden>
+          <form id="login-form">
+            <h4>Ingresa a tu cuenta</h4>
+            <div class="field"><label for="identifier">Correo o celular</label><input id="identifier" name="identifier" autocomplete="username" placeholder="Tu correo o número de celular" required maxlength="254"></div>
+            <div class="field"><label for="login-password">Clave</label><div class="input-wrap"><input id="login-password" class="password-input" name="password" type="password" autocomplete="current-password" placeholder="Ingresa tu clave" required><button type="button" class="reveal" aria-label="Mostrar clave" aria-controls="login-password" aria-pressed="false"><i data-lucide="eye" aria-hidden="true"></i></button></div></div>
+            <button class="submit" type="submit">Iniciar sesión<i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            <p class="switch-note">¿Aún no tienes una cuenta? <button class="text-button" type="button" data-mode="register">Regístrate</button></p>
+          </form>
+        </div>
+        <p id="notice" class="notice" role="status" hidden></p>
+      </section>
+    </main>
+    <footer><span>Hackatón · Billetera digital en Perú · Grupo 4</span><span class="prototype">Prototipo sin conexión bancaria</span></footer>
+  </div>
+  <script>
+    const notice = document.getElementById('notice');
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    function selectMode(mode, focusTab = false) {
+      tabs.forEach(tab => {
+        const selected = tab.dataset.mode === mode;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+        if (selected && focusTab) tab.focus();
+      });
+      document.querySelectorAll('input').forEach(input => {
+        input.setCustomValidity('');
+        if (input.name === 'password') input.type = 'password';
+      });
+      document.querySelectorAll('.reveal').forEach(button => {
+        button.setAttribute('aria-pressed', 'false');
+        button.setAttribute('aria-label', 'Mostrar clave');
+      });
+      notice.hidden = true;
+    }
+    document.querySelectorAll('[data-mode]').forEach(button => {
+      button.addEventListener('click', () => selectMode(button.dataset.mode, true));
+    });
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('keydown', event => {
+        let target;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') target = tabs[1 - index];
+        if (event.key === 'Home') target = tabs[0];
+        if (event.key === 'End') target = tabs[tabs.length - 1];
+        if (target) { event.preventDefault(); selectMode(target.dataset.mode, true); }
+      });
+    });
+    document.querySelectorAll('.reveal').forEach(button => {
+      button.addEventListener('click', () => {
+        const input = document.getElementById(button.getAttribute('aria-controls'));
+        const showing = input.type === 'password';
+        input.type = showing ? 'text' : 'password';
+        button.setAttribute('aria-label', showing ? 'Ocultar clave' : 'Mostrar clave');
+        button.setAttribute('aria-pressed', String(showing));
+      });
+    });
+    const identifier = document.getElementById('identifier');
+    identifier.addEventListener('input', () => identifier.setCustomValidity(''));
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('input', () => { notice.hidden = true; });
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        if (form.id === 'login-form') {
+          const value = identifier.value.trim();
+          if (!/^9[0-9]{8}$/.test(value) && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            identifier.setCustomValidity('Ingresa un correo válido o un celular peruano de 9 dígitos.');
+            identifier.reportValidity();
+            return;
+          }
+        }
+        notice.textContent = form.id === 'register-form'
+          ? 'Registro de demostración completado. No se ha creado una cuenta ni guardado tus datos.'
+          : 'Login de demostración completado. No se ha autenticado una cuenta real.';
+        notice.hidden = false;
+        form.reset();
+        document.querySelectorAll('.reveal[aria-pressed="true"]').forEach(button => button.click());
+      });
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) window.lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
