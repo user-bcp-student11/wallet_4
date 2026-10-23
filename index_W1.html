@@ -51,6 +51,15 @@
     .field { margin-bottom: 19px; }
     label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
     .input-wrap { position: relative; }
+    .phone-wrap { display: grid; grid-template-columns: 66px minmax(0, 1fr); }
+    .phone-prefix { display: flex; align-items: center; justify-content: center; height: 49px; border: 1px solid #d5ddd4; border-right: 0; border-radius: 5px 0 0 5px; background: #edf2ec; color: #53635a; font-size: 14px; font-weight: 700; }
+    .phone-wrap input { border-radius: 0 5px 5px 0; }
+    .field-hint { margin: 6px 0 0; color: var(--muted); font-size: 11px; }
+    .document-prefix { display: flex; align-items: center; justify-content: center; height: 49px; padding: 0 12px; border: 1px solid #d5ddd4; border-right: 0; border-radius: 5px 0 0 5px; background: #edf2ec; color: #53635a; font-size: 13px; font-weight: 700; }
+    .document-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); }
+    .document-wrap input { border-radius: 0 5px 5px 0; }
+    select { width: 100%; height: 49px; padding: 0 14px; border: 1px solid #d5ddd4; border-radius: 5px; background: #fff; color: var(--ink); font: inherit; }
+    select:focus { outline: none; border-color: #578466; box-shadow: 0 0 0 3px #174b3d0d; }
     input { width: 100%; height: 49px; border: 1px solid #d5ddd4; border-radius: 5px; background: #fff; color: var(--ink); padding: 0 14px; transition: border-color .15s, box-shadow .15s; min-width: 0; }
     input::placeholder { color: #98a099; font-size: 13px; }
     input:focus { outline: none; border-color: #578466; box-shadow: 0 0 0 3px #174b3d0d; }
@@ -64,6 +73,30 @@
     .text-button { color: var(--green); border: 0; background: none; font-weight: 700; padding: 3px; font-size: inherit; }
     .text-button:hover { text-decoration: underline; }
     .notice { margin: 20px 0 0; padding: 13px 15px; background: #e5efdd; border-left: 3px solid #618143; font-size: 13px; line-height: 1.6; border-radius: 3px; }
+    .welcome-screen { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: 28px; padding: 58px 0 64px; align-items: start; }
+    .welcome-intro { grid-column: 1 / -1; }
+    .welcome-intro h2 { max-width: 850px; font-size: 40px; }
+    .welcome-intro h2 span { display: inline; }
+    .welcome-copy { max-width: 700px; margin: 14px 0 0; color: var(--muted); }
+    .balance-panel { min-height: 235px; display: flex; flex-direction: column; justify-content: space-between; padding: 26px; border-radius: 8px; background: var(--green); color: #fff; }
+    .balance-label { margin: 0; color: #dce9e1; font-size: 13px; }
+    .balance-amount { display: block; margin: 4px 0 20px; font-family: 'Manrope', sans-serif; font-size: 42px; font-weight: 800; }
+    .wallet-meta { display: flex; justify-content: space-between; gap: 12px; color: #dce9e1; font-size: 12px; }
+    .movements-panel { padding: 24px 0; }
+    .movement-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 8px; }
+    .movement-heading h3 { font-size: 20px; }
+    .example-tag { padding: 5px 8px; border-radius: 4px; background: #fff0d8; color: #82520c; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .movement-disclaimer { margin: 0 0 12px; color: var(--muted); font-size: 12px; }
+    .movement-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .movement-row { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .movement-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e9eee8; color: var(--green); }
+    .movement-icon svg { width: 17px; height: 17px; }
+    .movement-name { display: block; font-size: 13px; font-weight: 700; }
+    .movement-date { display: block; color: var(--muted); font-size: 11px; }
+    .movement-amount { font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .welcome-actions { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 4px; }
+    .welcome-note { max-width: 700px; margin: 0; color: var(--muted); font-size: 12px; }
+    .welcome-actions .submit { width: auto; min-width: 170px; margin: 0; }
     footer { border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; padding: 22px 0 28px; color: #7b857c; font-size: 11px; }
     .prototype { display: flex; align-items: center; gap: 7px; }
     .prototype::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #7a995c; }
@@ -75,6 +108,13 @@
       .eyebrow { margin-bottom: 12px; font-size: 10px; } .group { margin: 14px 0 0; } .landscape { display: none; }
       .account { max-width: none; padding: 0; } h3 { font-size: 22px; } .section-heading { margin-bottom: 18px; }
       .tabs { margin-bottom: 24px; } footer { flex-wrap: wrap; font-size: 10px; }
+      .welcome-screen { grid-template-columns: 1fr; gap: 10px; padding: 34px 0 42px; }
+      .welcome-intro h2 { font-size: 31px; }
+      .balance-panel { min-height: 200px; padding: 22px; }
+      .balance-amount { font-size: 36px; }
+      .movements-panel { padding: 24px 0 8px; }
+      .welcome-actions { align-items: stretch; flex-direction: column; }
+      .welcome-actions .submit { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
@@ -85,7 +125,7 @@
       <div class="brand"><span class="brand-icon" aria-hidden="true"><i data-lucide="wallet"></i></span><h1>Hackatón</h1></div>
       <div class="edition"><span class="peru" aria-hidden="true"></span> Perú · Grupo 4</div>
     </header>
-    <main>
+    <main id="registration-view">
       <section class="intro" aria-labelledby="wallet-title">
         <p class="eyebrow">Conectados por nuevas ideas</p>
         <h2 id="wallet-title">Billetera digital <span>en Perú (grupo 4)</span></h2>
@@ -106,7 +146,10 @@
             <h4>Crea tu cuenta</h4>
             <div class="field"><label for="name">Nombre</label><input id="name" name="name" autocomplete="name" placeholder="Tu nombre completo" required maxlength="100" pattern=".*\S.*" title="Ingresa tu nombre"></div>
             <div class="field"><label for="email">Correo electrónico</label><input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required maxlength="254"></div>
-            <div class="field"><label for="phone">Celular</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Ej. 987654321" pattern="9[0-9]{8}" title="Ingresa 9 dígitos, empezando por 9" required maxlength="9"></div>
+            <div class="field"><label for="birth-date">Fecha de nacimiento</label><input id="birth-date" name="birthDate" type="date" autocomplete="bday" required aria-describedby="birth-date-hint"><p class="field-hint" id="birth-date-hint">Usa una fecha ficticia. Debes tener 18 años o más; la validación es local y no verifica identidad.</p></div>
+            <div class="field"><label for="phone">Celular peruano</label><div class="phone-wrap"><span class="phone-prefix" aria-hidden="true">+51</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="987654321" pattern="9[0-9]{8}" title="Ingresa 9 dígitos, empezando por 9" required maxlength="9" aria-describedby="phone-hint"></div><p class="field-hint" id="phone-hint">Número nacional: 9 dígitos que empiezan en 9.</p></div>
+            <div class="field"><label for="document-type">Tipo de documento</label><select id="document-type" name="documentType" required><option value="TEST" selected>Documento de prueba (TEST)</option></select><p class="field-hint">El mock W1 solo acepta el tipo TEST; no ingreses DNI, CE ni documentos reales.</p></div>
+            <div class="field"><label for="document-number">Número de documento ficticio</label><div class="document-wrap"><span class="document-prefix" aria-hidden="true">TEST-</span><input id="document-number" name="documentNumber" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="W1-0001" pattern="[A-Za-z0-9\-]{1,24}" maxlength="24" required title="Usa letras, números o guiones para el identificador de prueba"></div><p class="field-hint">Usa un identificador nuevo por intento. Este valor no verifica identidad ni evita duplicados.</p></div>
             <div class="field"><label for="register-password">Clave</label><div class="input-wrap"><input id="register-password" class="password-input" name="password" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8"><button type="button" class="reveal" aria-label="Mostrar clave" aria-controls="register-password" aria-pressed="false"><i data-lucide="eye" aria-hidden="true"></i></button></div></div>
             <button class="submit" type="submit">Crear cuenta<i data-lucide="arrow-right" aria-hidden="true"></i></button>
             <p class="switch-note">¿Ya tienes una cuenta? <button class="text-button" type="button" data-mode="login">Inicia sesión</button></p>
@@ -124,6 +167,29 @@
         <p id="notice" class="notice" role="status" hidden></p>
       </section>
     </main>
+    <section id="welcome-view" class="welcome-screen" aria-labelledby="welcome-title" hidden>
+      <div class="welcome-intro">
+        <p class="eyebrow">Registro de demostración completado</p>
+        <h2 id="welcome-title" tabindex="-1">¡Hola <span id="welcome-name">Usuario</span>! Bienvenido a tu Wallet.</h2>
+        <p class="welcome-copy">Esta es una vista de bienvenida para la demo W1. Se muestra una sola Wallet de ejemplo.</p>
+      </div>
+      <section class="balance-panel" aria-label="Resumen de saldo de demostración">
+        <div><p class="balance-label">Saldo disponible de demostración</p><strong class="balance-amount" id="welcome-balance">S/ 0.00</strong></div>
+        <div class="wallet-meta"><span>Wallet de prueba</span><span id="welcome-document">TEST-</span></div>
+      </section>
+      <section class="movements-panel" aria-labelledby="movements-title">
+        <div class="movement-heading"><h3 id="movements-title">Movimientos</h3><span class="example-tag">Ejemplos ficticios</span></div>
+        <p class="movement-disclaimer">Son ejemplos visuales de movimientos futuros; no están registrados y no afectan el saldo.</p>
+        <ul class="movement-list">
+          <li class="movement-row"><span class="movement-icon"><i data-lucide="arrow-down-left" aria-hidden="true"></i></span><span><span class="movement-name">Transferencia recibida</span><span class="movement-date">Ejemplo · Hoy, 10:24</span></span><span class="movement-amount">+ S/ 45.00</span></li>
+          <li class="movement-row"><span class="movement-icon"><i data-lucide="shopping-bag" aria-hidden="true"></i></span><span><span class="movement-name">Compra en comercio</span><span class="movement-date">Ejemplo · Ayer, 18:42</span></span><span class="movement-amount">− S/ 12.50</span></li>
+        </ul>
+      </section>
+      <div class="welcome-actions">
+        <p class="welcome-note">Prototipo visual: no crea una cuenta ni consulta el mock, no guarda datos y no registra estas operaciones. El saldo real de una Wallet nueva del mock es cero.</p>
+        <button class="submit" id="restart-demo" type="button">Volver al registro<i data-lucide="arrow-left" aria-hidden="true"></i></button>
+      </div>
+    </section>
     <footer><span>Hackatón · Billetera digital en Perú · Grupo 4</span><span class="prototype">Prototipo sin conexión bancaria</span></footer>
   </div>
   <script>
@@ -169,6 +235,51 @@
       });
     });
     const identifier = document.getElementById('identifier');
+    const birthDate = document.getElementById('birth-date');
+    const registrationForm = document.getElementById('register-form');
+    const documentType = document.getElementById('document-type');
+    const documentNumber = document.getElementById('document-number');
+    function localDateValue(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    function isAdult(dateValue) {
+      if (!dateValue) return false;
+      const [year, month, day] = dateValue.split('-').map(Number);
+      const today = new Date();
+      let age = today.getFullYear() - year;
+      if (today.getMonth() + 1 < month || (today.getMonth() + 1 === month && today.getDate() < day)) age -= 1;
+      return age >= 18;
+    }
+    function validateBirthDate() {
+      birthDate.setCustomValidity('');
+      if (!birthDate.value) return;
+      if (birthDate.value > birthDate.max) {
+        birthDate.setCustomValidity('La fecha de nacimiento no puede estar en el futuro.');
+      } else if (!isAdult(birthDate.value)) {
+        birthDate.setCustomValidity('Debes tener 18 años o más para registrarte.');
+      }
+    }
+    birthDate.max = localDateValue(new Date());
+    birthDate.addEventListener('input', validateBirthDate);
+    birthDate.addEventListener('change', validateBirthDate);
+    registrationForm.addEventListener('submit', event => {
+      validateBirthDate();
+      if (!registrationForm.reportValidity()) event.preventDefault();
+    }, true);
+    function showWelcomeScreen() {
+      const fullName = document.getElementById('name').value.trim();
+      const firstName = fullName.split(/\s+/)[0] || 'Usuario';
+      document.getElementById('welcome-name').textContent = firstName;
+      document.getElementById('welcome-document').textContent = `${documentType.value}-${documentNumber.value.trim()}`;
+      document.getElementById('registration-view').hidden = true;
+      document.getElementById('welcome-view').hidden = false;
+      document.getElementById('welcome-title').focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    document.getElementById('restart-demo').addEventListener('click', () => window.location.reload());
     identifier.addEventListener('input', () => identifier.setCustomValidity(''));
     document.querySelectorAll('form').forEach(form => {
       form.addEventListener('input', () => { notice.hidden = true; });
@@ -182,9 +293,12 @@
             return;
           }
         }
-        notice.textContent = form.id === 'register-form'
-          ? 'Registro de demostración completado. No se ha creado una cuenta ni guardado tus datos.'
-          : 'Login de demostración completado. No se ha autenticado una cuenta real.';
+        if (form.id === 'register-form') {
+          showWelcomeScreen();
+          form.reset();
+          return;
+        }
+        notice.textContent = 'Login de demostración completado. No se ha autenticado una cuenta real.';
         notice.hidden = false;
         form.reset();
         document.querySelectorAll('.reveal[aria-pressed="true"]').forEach(button => button.click());
