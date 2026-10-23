@@ -88,3 +88,35 @@ No usar `--bail` en el recorrido completo: podria detenerlo antes de los reverso
 - Smoke test real con Newman: 5 consultas y 20 aserciones aprobadas.
 - Proteccion del reset comprobada: el request se omite con `allowReset=NO`.
 - Los escenarios que modifican datos estan preparados, pero no se han ejecutado contra el grupo compartido. Deben validarse antes de emplearlos como gate de CI.
+
+## Comandos de PR
+
+Ejecutar desde la raiz del proyecto. Cada integrante debe usar un nombre de rama propio y un mensaje que describa sus cambios.
+
+```sh
+# Crear una rama propia
+git switch -c feat/nombre-del-cambio
+
+# Revisar los archivos antes de agregarlos
+git status
+
+# Agregar los cambios y crear el commit
+git add .
+git commit -m "feat: describir el cambio realizado"
+
+# Subir la rama al remoto
+git push -u origin HEAD
+```
+
+Antes de ejecutar `git add .`, verificar que no haya credenciales, archivos temporales ni cambios ajenos a la tarea. Para agregar solo archivos concretos, usar `git add ruta/del/archivo`.
+
+Si el commit ya existe localmente y solo falta publicarlo, omitir `git add` y `git commit`. Si todavia no tiene una rama propia, crearla antes del push:
+
+```sh
+git switch -c feat/wallet-api-postman
+git push -u origin HEAD
+```
+
+Si la rama propia ya existe y es la actual, ejecutar solo `git push -u origin HEAD`.
+
+Despues del push, abrir un Pull Request en GitHub desde la rama publicada hacia `main`. Incluir un titulo descriptivo, resumen de cambios, pruebas realizadas y riesgos o validaciones pendientes. No hacer push directo a `main`.
