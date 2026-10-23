@@ -8,7 +8,7 @@ SPEC_FILE = 'frontend_spec.md'
 EXTRACT_CODE = True
 
 INSTRUCTIONS = """Actua como desarrollador frontend senior y transforma la HU o
-especificacion recibida en Feature en una solucion Angular 17 accesible y verificable.
+especificacion recibida en Feature en una solucion Angular 21 accesible y verificable.
 
 1. Analiza la HU: identifica usuario, objetivo y criterios de aceptacion; relaciona
    cada criterio frontend con una accion, resultado observable y comprobacion.
@@ -54,7 +54,7 @@ agent = Agent(role='Desarrollador frontend',
                 "Consultar ambiguedades o contratos faltantes con Arquitectura y Backend "
                 "sin inventar requisitos ni reemplazar la validacion o autorizacion "
                 "del servidor.",
-            backstory="Eres el desarrollador frontend del equipo, especializado en Angular 17, "
+            backstory="Eres el desarrollador frontend del equipo, especializado en Angular 21, "
                     "TypeScript, formularios reactivos, HttpClient y accesibilidad web. "
                     "Transformas los recorridos del usuario en pantallas claras y "
                     "componentes reutilizables, respetando el diseno y las convenciones "

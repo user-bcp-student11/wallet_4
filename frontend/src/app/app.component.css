@@ -1,8 +1,10 @@
 :host {
+  /* Permite que el shell ocupe toda la altura de la ventana. */
   display: block;
   min-height: 100vh;
 }
 
+/* Contenedor centrado que limita el ancho máximo del dashboard. */
 .app-shell {
   width: min(1120px, calc(100% - 64px));
   min-height: 100vh;
@@ -11,6 +13,7 @@
   flex-direction: column;
 }
 
+/* Navegación de cabecera y elementos de identidad del usuario. */
 .topbar {
   height: 82px;
   display: flex;
@@ -101,6 +104,7 @@
   stroke-linejoin: round;
 }
 
+/* Área principal: saludo, saldo, accesos rápidos e historial. */
 main {
   flex: 1;
   padding: 38px 0 54px;
@@ -163,6 +167,7 @@ h1 span {
   margin-bottom: 22px;
 }
 
+/* Superficies de las tarjetas y tarjeta destacada del saldo disponible. */
 .balance-card,
 .actions-card,
 .movements-card {
@@ -272,6 +277,7 @@ h1 span {
   right: -78px;
 }
 
+/* Tarjeta de acciones rápidas y controles de pago de demostración. */
 .actions-card {
   padding: 21px 23px 13px;
   background: #fff;
@@ -383,6 +389,7 @@ h2 {
   stroke-linejoin: round;
 }
 
+/* Historial de transacciones y estado visual de cada movimiento. */
 .movements-card {
   padding: 21px 24px 8px;
   background: #fff;
@@ -487,6 +494,7 @@ h2 {
   color: #4b7e51;
 }
 
+/* Pie de página y aviso temporal de acciones aún no implementadas. */
 footer {
   min-height: 61px;
   display: flex;
@@ -554,6 +562,7 @@ footer {
   cursor: pointer;
 }
 
+/* En tabletas, las tarjetas pasan a una columna y se simplifica cada fila. */
 @media (max-width: 760px) {
   .app-shell {
     width: min(100% - 36px, 560px);
@@ -598,6 +607,7 @@ footer {
   }
 }
 
+/* En móviles pequeños se reduce el espacio y se ocultan detalles secundarios. */
 @media (max-width: 480px) {
   .app-shell {
     width: calc(100% - 32px);
@@ -685,6 +695,7 @@ footer {
   }
 }
 
+/* Respeta la preferencia del sistema por reducir animaciones y desplazamientos. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

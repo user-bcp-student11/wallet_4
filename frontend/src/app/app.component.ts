@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 
+/** Estructura de un movimiento ficticio mostrado en el resumen. */
 interface Movement {
   initials: string;
   name: string;
@@ -13,14 +14,18 @@ interface Movement {
 @Component({
   selector: 'app-root',
   standalone: true,
+  // Los pipes se importan directamente porque este componente no usa NgModules.
   imports: [CurrencyPipe, DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  // Datos demostrativos que se reemplazarán al conectar autenticación y backend.
   readonly userName = 'María Fernanda';
   readonly balance = 2450.8;
   readonly today = new Date();
+
+  // Movimientos de ejemplo: incoming distingue abonos de pagos en la presentación.
   readonly movements: Movement[] = [
     {
       initials: 'CL',
@@ -50,6 +55,7 @@ export class AppComponent {
 
   activeAction = '';
 
+  /** Muestra un aviso para indicar que las acciones aún no están conectadas. */
   selectAction(action: string): void {
     this.activeAction = action;
   }

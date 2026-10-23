@@ -1,4 +1,5 @@
 <div class="app-shell">
+  <!-- Barra superior: marca, indicador de seguridad y perfil de ejemplo. -->
   <header class="topbar">
     <a class="brand" href="#" aria-label="Mi Billetera, inicio">
       <span class="brand-mark" aria-hidden="true">
@@ -30,6 +31,7 @@
   </header>
 
   <main>
+    <!-- Saludo personalizado y fecha local del día. -->
     <section class="welcome-row" aria-labelledby="welcome-title">
       <div>
         <p class="eyebrow">TU DINERO, SIEMPRE CONTIGO</p>
@@ -39,6 +41,7 @@
       <p class="today">{{ today | date:'EEEE, d \'de\' MMMM' }}</p>
     </section>
 
+    <!-- Resumen del saldo junto a los accesos rápidos de pago. -->
     <section class="overview-grid" aria-label="Resumen y acciones de tu billetera">
       <article class="balance-card">
         <div class="balance-card-top">
@@ -68,6 +71,7 @@
           </div>
           <span class="heading-spark" aria-hidden="true">✦</span>
         </div>
+        <!-- Los botones solo muestran un aviso; no procesan pagos reales. -->
         <div class="action-list">
           <button class="action-button" type="button" (click)="selectAction('Pagar por contacto')">
             <span class="action-icon contact-icon" aria-hidden="true">
@@ -104,6 +108,7 @@
       </article>
     </section>
 
+    <!-- Historial ficticio renderizado desde la lista definida en el componente. -->
     <section class="movements-card" aria-labelledby="movements-title">
       <div class="movements-heading">
         <div>
@@ -119,6 +124,7 @@
       </div>
 
       <div class="movement-list">
+        <!-- La clave estable mantiene cada movimiento asociado a su fila. -->
         @for (movement of movements; track movement.name) {
           <article class="movement-row">
             <span class="avatar" [class.incoming-avatar]="movement.incoming">{{ movement.initials }}</span>
@@ -138,6 +144,7 @@
       </div>
     </section>
 
+    <!-- Aviso accesible que se muestra después de seleccionar una acción pendiente. -->
     @if (activeAction) {
       <div class="toast" role="status" aria-live="polite">
         <span aria-hidden="true">✓</span>
@@ -147,6 +154,7 @@
     }
   </main>
 
+  <!-- Pie de página con el recordatorio de protección de datos. -->
   <footer>
     <span>© 2026 Mi Billetera · Una forma simple de mover tu dinero.</span>
     <span class="footer-security">

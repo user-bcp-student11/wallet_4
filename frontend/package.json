@@ -1,6 +1,7 @@
 {
   "name": "wallet-dashboard",
   "version": "0.1.0",
+  "description": "Mock Angular de la pantalla principal de una billetera digital.",
   "private": true,
   "scripts": {
     "start": "ng serve",
